@@ -7,109 +7,109 @@ The project is built around the NEU Surface Defect Database, a benchmark dataset
 
 To develop a reliable and robust defect classification system capable of identifying different types of surface defects under varying conditions such as:
 
--Illumination changes
+- Illumination changes
 
--Noise perturbations
+- Noise perturbations
 
--Limited dataset size
+- Limited dataset size
 
--Class imbalance
+- Class imbalance
 
 The project emphasizes robustness and industrial applicability over benchmark-only optimization.
 
-##🏭 Industrial Context
+## 🏭 Industrial Context
 
 In industrial production lines, automated visual inspection systems must:
 
--Detect defects in real-time
+- Detect defects in real-time
 
--Maintain high precision and recall
+- Maintain high precision and recall
 
--Generalize across changing environmental conditions
+- Generalize across changing environmental conditions
 
--Operate reliably with limited labeled data
+- Operate reliably with limited labeled data
 
 This project simulates these challenges and evaluates model performance accordingly.
 
-##🧠 Model Architecture
+## 🧠 Model Architecture
 
--Backbone: ResNet18
+- Backbone: ResNet18
 
--Transfer Learning with fine-tuning
+- Transfer Learning with fine-tuning
 
--Data augmentation strategies to improve generalization
+- Data augmentation strategies to improve generalization
 
--Cross-entropy loss for multi-class classification
+- Cross-entropy loss for multi-class classification
 
--The choice of ResNet18 balances:
+- The choice of ResNet18 balances:
 
--Performance
+- Performance
 
--Computational efficiency
+- Computational efficiency
 
--Deployability in industrial environments
+- Deployability in industrial environments
 
-##📊 Dataset
+## 📊 Dataset
 
 NEU Surface Defect Database
 
 The dataset contains 6 types of surface defects in hot-rolled steel strips:
 
--Crazing (Cr)
+- Crazing (Cr)
 
--Inclusion (In)
+- Inclusion (In)
 
--Patches (Pa)
+- Patches (Pa)
 
--Pitted Surface (PS)
+- Pitted Surface (PS)
 
--Rolled-in Scale (RS)
+- Rolled-in Scale (RS)
 
--Scratches (Sc)
+- Scratches (Sc)
 
 Images are grayscale and represent real industrial surface inspection scenarios.
 
-##📈 Evaluation
+## 📈 Evaluation
 
 The system is evaluated using:
 
--Accuracy
+- Accuracy
 
--Precision
+- Precision
 
--Recall
+- Recall
 
--Confusion Matrix
+- Confusion Matrix
 
--Robustness tests under synthetic noise / perturbations
+- Robustness tests under synthetic noise / perturbations
 
-##🛠 Tech Stack
+## 🛠 Tech Stack
 
--Python
+- Python
 
--PyTorch
+- PyTorch
 
--Torchvision
+- Torchvision
 
--NumPy
+- NumPy
 
--Matplotlib
+- Matplotlib
 
--OpenCV
+- OpenCV
 
-##🚀 Future Improvements
+## 🚀 Future Improvements
 
--Domain adaptation techniques
+- Domain adaptation techniques
 
--Anomaly detection approaches (one-class methods)
+- Anomaly detection approaches (one-class methods)
 
--Data-efficient training strategies
+- Data-efficient training strategies
 
--Lightweight deployment for edge devices
+- Lightweight deployment for edge devices
 
--Real-time inference optimization
+- Real-time inference optimization
 
-##🧪 Project Status
+## 🧪 Project Status
 
 Currently under active development.
 Focus areas: robustness experiments and model generalization improvements.
