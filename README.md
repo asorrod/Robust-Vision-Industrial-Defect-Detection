@@ -3,7 +3,7 @@ Robust Vision is an ongoing computer vision project focused on industrial surfac
 
 The project is built around the NEU Surface Defect Database, a benchmark dataset for steel surface inspection, and explores robustness and generalization challenges common in real industrial environments.
 
-##🎯 Objective
+## 🎯 Objective
 
 To develop a reliable and robust defect classification system capable of identifying different types of surface defects under varying conditions such as:
 
