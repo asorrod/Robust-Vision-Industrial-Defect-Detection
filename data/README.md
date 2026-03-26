@@ -1,1 +1,0 @@
-This folder will contain the dataset NEU-surface-defect-database it can be downloaded from: https://www.kaggle.com/datasets/rdsunday/neu-urface-defect-database?resource=download

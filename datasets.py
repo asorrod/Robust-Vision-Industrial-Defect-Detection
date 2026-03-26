@@ -76,6 +76,21 @@ def build_splits(dataset,
 
     return random_split(dataset, [train_size, val_size, test_size])
 
+def build_splits_index(dataset, train_ratio, val_ratio):
+
+    dataset_size = len(dataset)
+
+    train_size = int(dataset_size * train_ratio)
+    val_size = int(dataset_size * val_ratio)
+    test_size = dataset_size - train_size - val_size
+
+    train_subset, val_subset, test_subset = random_split(
+        range(dataset_size),
+        [train_size, val_size, test_size]
+    )
+
+    return train_subset.indices, val_subset.indices, test_subset.indices
+
 def build_dataloaders(train_dataset, 
                       val_dataset,
                       test_dataset,

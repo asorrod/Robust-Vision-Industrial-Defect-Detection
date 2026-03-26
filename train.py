@@ -1,11 +1,14 @@
 import torch
 from pathlib import Path
 from utils import get_device, load_config, set_seed
-from datasets import build_dataset, build_splits, build_dataloaders
+from datasets import build_dataset, build_splits, build_dataloaders, build_splits_index
 from tqdm.auto import tqdm
 from engine import train_step, validate_step, build_optimizer, build_loss
-from transforms import build_base_transform
+from transforms import build_transform
 from models import build_model
+from transforms import build_corruption_transforms
+from torchvision.transforms import v2
+from torch.utils.data import Subset
 
 def main():
 
@@ -21,15 +24,62 @@ def main():
     
     model = build_model(config["training"]["num_classes"]).to(device)
 
-    transform = build_base_transform()
-    dataset = build_dataset(images_dir=IMAGES_DIR,
-                             annotations_dir=ANNOTATIONS_DIR,
-                             transform=transform)
+    data_augment = config["robustness_training"]["data_augment"]
+    
+    model_name = "robust_model.pth" if data_augment else "baseline_model.pth"
 
-    train_dataset, val_dataset, test_dataset = build_splits(dataset=dataset,
-                                                            train_ratio=config["training"]["train_ratio"],
-                                                            val_ratio=config["training"]["val_ratio"])
+    perturbations = []
 
+    if data_augment:
+
+        corruption_names = config["robustness_training"]["corruptions"]
+        severity = config["robustness_training"]["severity_levels"]
+        prob = config["robustness_training"]["probability"]
+
+        corruption_transforms = [
+            build_corruption_transforms(name, severity)
+            for name in corruption_names
+        ]
+
+        perturbations.append(
+            v2.RandomApply(
+                [v2.RandomChoice(corruption_transforms)],
+                p=prob
+            )
+        )
+
+    base_dataset = build_dataset(
+    images_dir=IMAGES_DIR,
+    annotations_dir=ANNOTATIONS_DIR,
+    transform=None
+    )
+
+    # Obtener índices de split
+    train_idx, val_idx, test_idx = build_splits_index(
+        dataset=base_dataset,
+        train_ratio=config["training"]["train_ratio"],
+        val_ratio=config["training"]["val_ratio"]
+    )
+
+    # Transforms
+    train_transform = build_transform(perturbations)
+    eval_transform = build_transform([])
+
+    # Crear datasets independientes
+    train_dataset = Subset(
+        build_dataset(IMAGES_DIR, ANNOTATIONS_DIR, train_transform),
+        train_idx
+    )
+
+    val_dataset = Subset(
+        build_dataset(IMAGES_DIR, ANNOTATIONS_DIR, eval_transform),
+        val_idx
+    )
+
+    test_dataset = Subset(
+        build_dataset(IMAGES_DIR, ANNOTATIONS_DIR, eval_transform),
+        test_idx
+    )
     
     train_loader, val_loader, test_loader = build_dataloaders(train_dataset=train_dataset,
                                                               val_dataset=val_dataset,
@@ -77,7 +127,7 @@ def main():
                 "model_state_dict": model.state_dict(),
                 "optimizer_state_dict": optimizer.state_dict(),
                 "val_acc": val_acc
-            }, MODEL_DIR / "best_model.pth")
+            }, MODEL_DIR / model_name)
         else: 
             counter += 1
             tqdm.write(f"Epoch {epoch+1}: No improvement. EarlyStopping counter: {counter}/{patience}")
