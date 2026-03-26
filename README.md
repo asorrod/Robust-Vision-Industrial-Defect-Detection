@@ -71,6 +71,23 @@ The dataset contains 6 types of surface defects in hot-rolled steel strips:
 
 Images are grayscale and represent real industrial surface inspection scenarios.
 
+## 🧪 Robust Training Strategy
+
+To improve model robustness under real-world conditions, a data-centric approach was applied during training.
+
+Instead of training only on clean images, the model was exposed to synthetically corrupted data simulating realistic industrial noise.
+
+### Approach
+- Each training image had a 40% probability of being corrupted
+- Corruptions applied:
+    - Gaussian noise
+    - Gaussian blur
+    - Brightness variations
+    - Occlusions
+- Corruptions were applied randomly and dynamically during training
+
+This effectively creates a robust training distribution, closer to real industrial environments where image quality is not guaranteed.
+
 ## 📈 Evaluation
 
 The system is evaluated using:
@@ -134,7 +151,17 @@ The robust model maintains significantly higher performance under severe corrupt
 
 ## 📉 Visual Results
 
+<img width="1702" height="2154" alt="robustness_under_severe_corruptions" src="https://github.com/user-attachments/assets/8b3c8979-047b-4d75-884b-ace8c109f384" />
+
 <img width="3182" height="1638" alt="robust_heatmap" src="https://github.com/user-attachments/assets/d4b4e667-9325-4f8b-8ec0-b153d8c0857d" />
 
-<img width="1702" height="2154" alt="robustness_under_severe_corruptions" src="https://github.com/user-attachments/assets/8b3c8979-047b-4d75-884b-ace8c109f384" />
+## 🔍 Key Insights
+
+- Model performance degrades as corruption severity increases
+- Combined corruptions (e.g., noise + blur + occlusion) have the strongest negative impact
+- The robust model shows:
+  - Lower performance degradation
+  - Better stability across corruption types
+- Occlusion alone is less harmful than combined perturbations
+- The most harmful corruption is gaussian_noise
 
