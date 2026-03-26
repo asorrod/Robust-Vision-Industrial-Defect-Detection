@@ -1,7 +1,9 @@
 # Robust-Vision-Industrial-Defect-Detection
-Robust Vision is an ongoing computer vision project focused on industrial surface defect detection using deep learning.
+Robust Vision is a computer vision project focused on industrial defect detection under real-world conditions.
 
-The project is built around the NEU Surface Defect Database, a benchmark dataset for steel surface inspection, and explores robustness and generalization challenges common in real industrial environments.
+Unlike standard approaches optimized for clean datasets, this project emphasizes robustness and generalization by evaluating model performance under multiple types of visual corruption (noise, blur, brightness changes, and occlusions).
+
+The goal is to simulate real industrial environments where data is imperfect and conditions are constantly changing.
 
 ## 🎯 Objective
 
@@ -109,7 +111,23 @@ The system is evaluated using:
 
 - Real-time inference optimization
 
-## 🧪 Project Status
+## ⚙️ Experimental Setup
 
-Currently under active development.
-Focus areas: robustness experiments and model generalization improvements.
+- Corruptions applied:
+  - Gaussian noise
+  - Gaussian blur
+  - Brightness shifts
+  - Occlusions
+- Severity levels: 1 (low) to 5 (high)
+- Evaluation performed across all corruption combinations
+
+## 📊 Results
+
+Model Comparison
+
+| Model | Model	Mean F1 (Severity=1)	| Mean F1 (Severity=3)	| Mean F1 (Severity=5) |
+| ----- | --------------------------- | --------------------- | ---------------- |
+| Baseline |	0.607137 |	0.371032 | 0.314033 |
+| Robust |	0.926033 | 0.801130 | 0.712048 |
+
+The robust model maintains significantly higher performance under severe corruptions, demonstrating improved generalization and stability.
