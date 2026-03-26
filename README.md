@@ -131,3 +131,10 @@ Model Comparison
 | Robust |	0.926033 | 0.801130 | 0.712048 |
 
 The robust model maintains significantly higher performance under severe corruptions, demonstrating improved generalization and stability.
+
+## 📉 Visual Results
+
+<img width="3182" height="1638" alt="robust_heatmap" src="https://github.com/user-attachments/assets/d4b4e667-9325-4f8b-8ec0-b153d8c0857d" />
+
+<img width="1702" height="2154" alt="robustness_under_severe_corruptions" src="https://github.com/user-attachments/assets/8b3c8979-047b-4d75-884b-ace8c109f384" />
+
